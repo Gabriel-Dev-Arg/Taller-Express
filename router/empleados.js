@@ -8,51 +8,49 @@ router.get("/", async (req, res) => {
     try {
         let empleados = await Empleado.find();
         return res.status(200).json({
-            response: empleados
+            response: empleados,
         });
     } catch (error) {
         return res.status(500).json({
-            response: error
+            response: error,
         });
     }
 });
 
 // Endpoint para obtener un empleado por nombre
+//localhost:8080/api/empleados/nombre/María García
 router.get("/nombre/:nombre", async (req, res) => {
+    //la respuesta donde viene la informacion
     const { nombre } = req.params;
     try {
         let empleado = await Empleado.findOne({ nombre });
         if (!empleado) {
             return res.status(404).json({
-                response: `No se encontró un empleado con el nombre ${nombre}`
+                response: `No se encontró un empleado con el nombre ${nombre}`,
             });
         }
         return res.status(200).json({
-            response: empleado
+            response: empleado,
         });
     } catch (error) {
         return res.status(500).json({
-            response: error
+            response: error,
         });
     }
 });
 
 // Endpoint para obtener empleados por puesto
-router.get("/puesto/:puesto", async (req, res) => {
-    const { puesto } = req.params;
+//localhost:8080/api/empleados/cargo/Vendedor
+router.get("/cargo/:cargo", async (req, res) => {
+    const { cargo } = req.params;
     try {
-        let empleados = await Empleado.find({ puesto });
-        if (empleados.length === 0) {
-            return res.status(404).json({
-                response: `No se encontraron empleados con el puesto ${puesto}`
-            });
-        }
+        let empleados = await Empleado.find({ cargo });
         return res.status(200).json({
-            response: empleados
+            response: empleados,
         });
     } catch (error) {
         return res.status(500).json({
-            response: error
+            response: error,
         });
     }
 });
