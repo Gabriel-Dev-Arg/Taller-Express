@@ -13,10 +13,8 @@ let empleadosPorNombre =  async (req, res) => {
         return res.status(200).json({
             response: empleado,
         });
-    } catch (error) {
-        return res.status(500).json({
-            response: error,
-        });
+    } catch (error)  {
+        next(error)
     }
 }
 

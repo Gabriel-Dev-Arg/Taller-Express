@@ -8,9 +8,7 @@ let traerTodoLosEmpleados =  async (req, res) => {
             response: empleados,
         });
     } catch (error) {
-        return res.status(500).json({
-            response: error,
-        });
+        next(error)
     }
 }
 

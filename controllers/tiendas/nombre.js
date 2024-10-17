@@ -9,12 +9,9 @@ let traerTiendaPorNombre = async (req,res) => {
                 response: tienda
             }
         )
-    } catch (error) {
-        return res.status(500).json({
-            response: error
-        });
+    } catch (error)  {
+        next(error)
     }
-
 }
 
 export default traerTiendaPorNombre

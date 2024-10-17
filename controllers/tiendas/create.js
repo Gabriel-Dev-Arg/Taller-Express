@@ -1,6 +1,6 @@
 import Tienda from "../../models/Tienda.js"
 
-const crearNuevaTienda = async (req,res) => {
+const crearNuevaTienda = async (req,res,next) => {
     try {
         // Validamos si hay datos en el body
         if (!req.body) {
@@ -16,11 +16,7 @@ const crearNuevaTienda = async (req,res) => {
         });
 
     } catch (error) {
-        // Retornamos un mensaje de error
-        return res.status(500).json({
-            message: "Error al crear el empleado.",
-            error: error.message,
-        });
+        next(error)
     }
 }
 
@@ -34,11 +30,8 @@ const agregarVariasTiendas = async (req, res) => {
         return res.status(201).json({
             response: multiplesTiendas,
         });
-    } catch (error) {
-        return res.status(500).json({
-            message: "Error al crear los productos.",
-            error: error.message,
-        });
+    } catch (error)  {
+        next(error)
     }
 };
 export {crearNuevaTienda,agregarVariasTiendas}

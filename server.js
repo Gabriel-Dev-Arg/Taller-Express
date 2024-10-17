@@ -4,6 +4,8 @@ import "./config/database.js"
 import cors from "cors"
 import morgan from "morgan";
 import indexRouter from "./router/index.js"
+import not_found_handler from "./middleware/not_found_handler.js"
+import error_handler from "./middleware/error_handler.js";
 
 
 // utilizamos espress
@@ -27,6 +29,8 @@ server.use(morgan("dev"))
 //router 
 //cuando alguien ejecuto /api , traeme lo que tengan en indexRouter
 server.use("/api",indexRouter)
+server.use(not_found_handler)
+server.use(error_handler)
 //levantamos el servidor 
 server.listen(PORT,ready)
 

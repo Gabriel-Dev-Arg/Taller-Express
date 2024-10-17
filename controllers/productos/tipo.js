@@ -10,10 +10,8 @@ let tipoDeProducto = async (req,res) => {
                 response: productos
             }
         )
-    } catch (error) {
-        return res.status(500).json({
-            response: error
-        });
+    } catch (error)  {
+        next(error)
     }
 }
 

@@ -1,7 +1,7 @@
 //controlador tipo get
 import Tienda from "../../models/Tienda.js";
 
-let traerTienda = async (req,res) => {
+let traerTienda = async (req,res,next) => {
     try {
         let tienda = await Tienda.find()
         return res.status(202).json(
@@ -10,10 +10,7 @@ let traerTienda = async (req,res) => {
             }
         )
     } catch (error) {
-        return res.status(500).json({
-            response: error
-        })
-        
+        next(error)
     }
 }
 

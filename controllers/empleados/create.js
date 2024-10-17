@@ -19,11 +19,7 @@ const create = async (req, res) => {
         });
 
     } catch (error) {
-        // Retornamos un mensaje de error
-        return res.status(500).json({
-            message: "Error al crear el empleado.",
-            error: error.message,
-        });
+        next(error)
     }
 };
 
