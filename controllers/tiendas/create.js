@@ -24,4 +24,21 @@ const crearNuevaTienda = async (req,res) => {
     }
 }
 
-export {crearNuevaTienda}
+const agregarVariasTiendas = async (req, res) => {
+    try {
+        if (!req.body || !Array.isArray(req.body)) {
+            return res.status(400).json({ message: "No se enviaron datos o el formato es incorrecto." });
+        }
+        const tiendas = req.body;
+        const multiplesTiendas = await Tienda.insertMany(tiendas);
+        return res.status(201).json({
+            response: multiplesTiendas,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Error al crear los productos.",
+            error: error.message,
+        });
+    }
+};
+export {crearNuevaTienda,agregarVariasTiendas}

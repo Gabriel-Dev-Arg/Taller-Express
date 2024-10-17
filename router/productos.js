@@ -3,7 +3,7 @@ import { Router } from "express";
 import traerTodosLosProductos from "../controllers/productos/read.js";
 import traerLasMarcas from "../controllers/productos/marca.js";
 import tipoDeProducto from "../controllers/productos/tipo.js";
-import {crearNuevoProducto} from "../controllers/productos/create.js"
+import {crearNuevoProducto,crearMultiplesProductos} from "../controllers/productos/create.js"
 
 
 // Utilizamos Router y lo ejecutamos
@@ -23,6 +23,7 @@ router.get("/tipo/:tipo", tipoDeProducto);
 // Ejemplo de ruta: localhost:8080/api/productos/crear
 router.post("/crear", crearNuevoProducto);
 
-
+//Ejemplo de ruta: localhost:8080/api/productos/crearmultiple
+router.post("/crearmultiple",crearMultiplesProductos)
 
 export default router;

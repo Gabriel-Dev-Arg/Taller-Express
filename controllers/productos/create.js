@@ -27,4 +27,22 @@ const crearNuevoProducto = async (req, res) => {
     }
 };
 
-export {crearNuevoProducto} //se exporta asi por que es una promesa
+
+const crearMultiplesProductos =  async (req, res) => {
+    try {
+        if (!req.body || !Array.isArray(req.body)) {
+            return res.status(400).json({ message: "No se enviaron datos o el formato es incorrecto." });
+        }
+        const productos = req.body;
+        const nuevosProductos = await Producto.insertMany(productos);
+        return res.status(201).json({
+            response: nuevosProductos,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Error al crear los productos.",
+            error: error.message,
+        });
+    }
+};
+export {crearNuevoProducto,crearMultiplesProductos} //se exporta asi por que es una promesa
