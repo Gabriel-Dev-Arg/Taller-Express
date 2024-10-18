@@ -1,12 +1,7 @@
 import Empleado from "../../models/Empleado.js";
 
-const create = async (req, res) => {
+const create = async (req, res,next) => {
     try {
-        // Validamos si hay datos en el body
-        if (!req.body) {
-            return res.status(400).json({ message: "No se enviaron datos." });
-        }
-
         // Extraemos la información del cuerpo de la solicitud
         const empleado = req.body;
 
@@ -25,9 +20,6 @@ const create = async (req, res) => {
 
 const crearNuevosEmpleados = async (req, res) => {
     try {
-        if (!req.body || !Array.isArray(req.body)) {
-            return res.status(400).json({ message: "No se enviaron datos o el formato es incorrecto." });
-        }
         const empleados = req.body;
         const nuevosEmpleados = await Empleado.insertMany(empleados);
         return res.status(201).json({

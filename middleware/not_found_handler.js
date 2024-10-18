@@ -1,12 +1,9 @@
 const not_found_handler = (req, res, next) => {
     return res.status(404).json({
         success: false,
-        message: "Oops! No encontramos la ruta solicitada.",
-        description: "La URL que intentaste acceder no existe en nuestro servidor. Verifica el endpoint.",
-        path: req.originalUrl, 
-        method: req.method, 
-        timestamp: new Date().toISOString() 
+        // Manejo de error 404
+        message: `La petición con el método ${req.method} en la ruta ${req.url} no fue encontrada - Not Found`
     });
-};
+}
 
 export default not_found_handler;

@@ -1,13 +1,8 @@
-const error_handler = (error, req, res, next) => {
-    console.error('Error:', error);
-
+const error_handler = (req, res, next) => {
     return res.status(500).json({
         success: false,
-        message: "Error interno del servidor. Por favor, inténtelo más tarde.", 
-        error: error.message || "Ocurrió un error inesperado", 
-        ruta: req.originalUrl, 
-        método: req.method, 
-        timestamp: new Date().toISOString() 
+        // Error 500 - Error interno del servidor
+        message: `Ocurrió un error en la ruta ${req.originalUrl} utilizando el método ${req.method}. Estamos trabajando para solucionarlo.`
     });
 };
 

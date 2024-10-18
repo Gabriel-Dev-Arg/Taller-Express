@@ -1,37 +1,50 @@
 import express from "express";
 import "dotenv/config.js";
+// Conexion con la base de datos
 import "./config/database.js"
+// Middleware para permitir solicitudes desde otros dominios.
 import cors from "cors"
+// Middleware para registrar las solicitudes HTTP en el servidor.
 import morgan from "morgan";
+// Enrutador principal
 import indexRouter from "./router/index.js"
+// Middleware manejador de errores 404
 import not_found_handler from "./middleware/not_found_handler.js"
+// Middleware manejador de errores 500
 import error_handler from "./middleware/error_handler.js";
+// Middleware manejador de errores 400
+import bad_request_handler from "./middleware/bad_request_handler.js";
 
 
-// utilizamos espress
+// Utilizamos espress
 const server = express()
 
-//traemos el puerto 8080
+// Traemos el puerto 8080
 const PORT = process.env.PORT || 8080
 
 //
 const ready = () => console.log("Server Listo :"+PORT);
 
-//peticiones y respuestas en json
+// Peticiones y respuestas en json
 server.use(express.json())
-//funcion para dar el ok en mas parametros
+// Funcion para dar el ok en mas parametros
 server.use(express.urlencoded({extended:true}))
-//cors para que la aplicacion sea estricta
+// Cors para que la aplicacion sea estricta
 server.use(cors())
-//registro de peticiones 
+// Registro de peticiones 
 server.use(morgan("dev"))
 
-//router 
-//cuando alguien ejecuto /api , traeme lo que tengan en indexRouter
+//Router 
+//Cuando alguien ejecuto /api , traeme lo que tengan en indexRouter
 server.use("/api",indexRouter)
+
+//Middleware 404
 server.use(not_found_handler)
+//Middleware 400
+server.use(bad_request_handler)
+//Middleware 500
 server.use(error_handler)
-//levantamos el servidor 
+//Levantamos el servidor 
 server.listen(PORT,ready)
 
 

@@ -1,17 +1,17 @@
 import Empleado from "../../models/Empleado.js";
 
-let empleadosPorNombre =  async (req, res) => {
+let empleadosPorNombre =  async (req, res,next) => {
     //la respuesta donde viene la informacion
     const { nombre } = req.params;
     try {
-        let empleado = await Empleado.findOne({ nombre });
-        if (!empleado) {
-            return res.status(404).json({
-                response: `No se encontró un empleado con el nombre ${nombre}`,
-            });
+        let empleados = await Empleado.find({ nombre });
+        if (empleados.length === 0) {
+            const error = new Error('Tienda no encontrada');
+            error.status = 404;
+            throw error;
         }
         return res.status(200).json({
-            response: empleado,
+            response: empleados,
         });
     } catch (error)  {
         next(error)
